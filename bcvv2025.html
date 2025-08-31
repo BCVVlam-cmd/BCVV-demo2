@@ -1,0 +1,396 @@
+<!DOCTYPE html> 
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BCVV 2025</title>
+
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>/* XIN CHÀO MNG NHAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,THẮC MẮC THÌ IBBBBB LÂMMMMMMMMMMM*/
+    
+  .hello-container {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.hello-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  color: #333;
+  position: relative;
+}
+
+.hello-box #back-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff80b3;
+  border: none;
+  color: white;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.hello-box #back-btn:hover {
+  background: #ff4d94;
+}
+
+     #back-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff66b2; 
+    color: white;
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  #back-btn:hover {
+    background-color: #ff3385; 
+    transform: scale(1.05);
+  }
+    header h1 {
+  font-size: clamp(1.2rem, 4vw, 2rem); 
+  margin: 0;
+}
+
+    body {
+      margin: 0;
+      font-family: 'Baloo 2', cursive;
+      background: pink;
+      color: #ff4d94;
+      overflow-x: hidden;
+      border-radius: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background-size: cover;
+      border-radius: 20px;
+      position: relative;
+    }         
+
+  header h1 {
+  font-size: 3rem;
+  margin: 0;
+  border-radius: 20px;
+  color: #ff4d94; 
+  text-shadow: 0 0 10px #ff80c0, 0 0 20px #ff4d94, 0 0 30px #ff1a75;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff;
+  }
+  to {
+    text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff, 0 0 40px #ffffff;
+  }
+}
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      border-radius: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      background: #ff80b3;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: #ff4d94;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      border-radius: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(146, 138, 138, 0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      border-radius: 20px;
+      box-shadow: 0 0 20px #ff99cc;
+    }
+
+    .card img {
+      max-width: 100px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+
+ footer {
+  text-align: center;   
+  margin-top: 2rem;     
+}
+
+footer span {
+  display: inline-block;  
+  padding: 6px 12px;       
+  background: #ffe6f2;     
+  border-radius: 15px;     
+  font-size: 0.85rem;      
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+}
+
+    
+    #music-btn {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #ff80b3;
+      border: none;
+      color: white;
+      font-size: 16px;
+      padding: 10px 15px;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+    #music-btn:hover {
+      background: #ff4d94;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="space-bg" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:0;"></canvas>
+
+<script>
+const canvas = document.getElementById("space-bg");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+
+let stars = [];
+for (let i = 0; i < 200; i++) {
+  stars.push({
+    x: (Math.random() - 0.5) * canvas.width,
+    y: (Math.random() - 0.5) * canvas.height,
+    z: Math.random() * canvas.width
+  });
+}
+
+function animateStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let star of stars) {
+    star.z -= 4; 
+    if (star.z <= 0) {
+      
+      star.x = (Math.random() - 0.5) * canvas.width;
+      star.y = (Math.random() - 0.5) * canvas.height;
+      star.z = canvas.width;
+    }
+
+    
+    let scale = 200 / star.z;
+    let x = star.x * scale + canvas.width / 2;
+    let y = star.y * scale + canvas.height / 2;
+    let r = Math.max(0, 2 - star.z / 500); 
+
+    ctx.beginPath();
+    ctx.arc(x, y, r * 3, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255,255,255,0.8)";
+    ctx.fill();
+  }
+
+  requestAnimationFrame(animateStars);
+}
+
+animateStars();
+</script>
+  <header>
+    <button id="music-btn">
+  <img src="chica1.png" alt="icon" style="width:31px; height:31px; vertical-align:middle; margin-right:8px;">
+  Chiikawa sound 
+</button>
+    <h1> BCVV Family</h1>
+    <nav>
+      <a href="#">Cập nhật lần cuối:30/8/2025</a>
+    </nav>
+  </header>
+
+  
+  <audio id="music" loop>
+    <source src="Chiikawa - Pajama Parties no Uta Remix.mp3" type="audio/mpeg">
+    
+  </audio>
+
+
+
+  <section class="content">
+    <div class="card">
+      <img src="alert1.png" alt="alert">
+      <h2>Xin chào</h2>
+      <p>Trang web này là gì vậy?</p>
+    </div>
+
+    <div class="card" id="accessory-card">
+  <img src="mail1.png" alt="mail">
+  <h2>About Us</h2>
+  <p>Thông tin về chúng tôi</p>
+</div>
+
+    <div class="card">
+      <img src="No1.png" alt="no">
+      <h2>Gian trưng bày</h2>
+      <p>Danh sách thành viên</p>
+    </div>
+  </section>
+
+  <footer>
+  <span>© 2025 BCVV | Duong Lam Project 🎀</span>
+</footer>
+
+
+  <script>
+    const music = document.getElementById("music");
+    const btn = document.getElementById("music-btn");
+    let playing = false;
+
+    btn.addEventListener("click", () => {
+      if (playing) {
+        music.pause();
+        btn.textContent = "(っ °Д °;)っ Đã tắt...";
+      } else {
+        music.play();
+        btn.textContent = "Đang nghe...ヾ(•ω•`)o";
+      }
+      playing = !playing;
+    });
+  </script>
+<script>
+  const content = document.querySelector(".content");
+  const originalContent = content.innerHTML;
+
+  
+  function showHelloPage() {
+    content.innerHTML = `
+      <div class="hello-container">
+        <div class="hello-box">
+          <button id="back-btn">⬅ Quay lại</button>
+          <h2>Chào bạn truy cập👋</h2>
+          <p>Từ Lâm!</p>
+          <p>Trang web này lập ra nhằm đích giải trí và không về cái gì cả:)) nó chỉ đơn giản được tạo ra để tôi giữ thông tin của mọi người trong gia đình của tôi</p>
+          <p>Trang web này giống như tóm tắt thông tin cá nhân từng người mà tôi quen biết,tôi tải in4 lên và nhập một số thông tin trên này,để tôi dễ dàng quản lí</p>
+          <p>Tôi biết trang web này rất đơn giản và không có gì đặc biệt,nhưng tôi vẫn muốn chia sẻ vì tôi thấy cute,và tôi cũng muốn khi "gia đình" tôi mất tài khoản và khi họ lập tài khoản mới,trang web này sẽ giúp họ tìm lại nhau</p>
+          <p>Nếu bạn muốn làm gì hay ho 🧐 thì có thể liên hệ với tôi qua fb: <a href="https://www.facebook.com/DuonqLaam" target="_blank">Duonq Lam</a></p>
+          <p>Cảm ơn bạn đã ghé thăm trang web của tôi 💼</p>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("back-btn").addEventListener("click", () => {
+      content.innerHTML = originalContent;
+      attachEvents();
+    });
+  }
+
+  
+  function showPage(type) {
+    let html = "";
+
+    if (type === "about") {
+      html = `
+        <div class="card">
+          <img src="giang2.jpg" alt="Giang Đẫm" class="circle-img">
+          <h2><a href="https://www.facebook.com/wkittimeomeo" target="_blank">fb:Giang Đẫm</a></h2>
+          <p>Bé Yag: hỗ trợ ý tưởng🎀</p>
+        </div>
+        <div class="card">
+          <img src="lam1.jpg" alt="Lam" class="circle-img">
+          <h2><a href="https://www.facebook.com/DuonqLaam" target="_blank">fb:DuonqLam</a></h2>
+          <p>Lâm: thiết kế web 💼</p>
+        </div>
+        <div class="card">
+          <img src="conechpng.jpg" alt="ếch" class="circle-img">
+          <h2><a href="https://www.facebook.com/con.ech.940263" target="_blank">fb:Con Ếch</a></h2>
+          <p>Phong: người cổ vũ 💀</p>
+        </div>
+      `;
+    }
+
+    if (type === "space") {
+      html = `
+        <div class="card">
+          <a href="bcvv20251.html" target="_blank"><img src="list 1.png" alt="Gian trưng bày"></a>
+          <h2><a href="bcvv20251.html" target="_blank">List ✨</a></h2>
+          <p><a href="bcvv20251.html" target="_blank">➡Chuyển tới vũ trụ thông tin 🌌</a></p>
+          <p><a href="bcvv20251.html" target="_blank">[PRESS ME]</a></p>
+        </div>
+      `;
+    }
+
+    html += `<button id="back-btn">⬅ Quay lại</button>`;
+    content.innerHTML = html;
+
+    const links = document.querySelectorAll(".card a");
+    links.forEach(link => {
+      link.style.color = "inherit";
+      link.style.textDecoration = "none";
+      link.style.cursor = "pointer";
+    });
+
+    document.getElementById("back-btn").addEventListener("click", () => {
+      content.innerHTML = originalContent;
+      attachEvents(); 
+    });
+  }
+
+  
+  function attachEvents() {
+    const helloCard = document.querySelector(".card:nth-child(1)");
+    const aboutCard = document.querySelector("#accessory-card");
+    const spaceCard = document.querySelector(".card:nth-child(3)");
+
+    if (helloCard) helloCard.addEventListener("click", showHelloPage);
+    if (aboutCard) aboutCard.addEventListener("click", () => showPage("about"));
+    if (spaceCard) spaceCard.addEventListener("click", () => showPage("space"));
+  }
+
+  attachEvents();
+</script>
+
+
+</script>
+</body>
+</html>

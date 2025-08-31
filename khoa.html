@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DKhoa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Baloo 2', cursive;
+    }
+
+    body {
+      background: pink;
+      color: white;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: rgba(255, 192, 203, 0.9);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 192, 203, 0.8);
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      background: #fff;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      overflow: hidden; 
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+    }
+
+    .menu button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #ff85a2, #ff5e78);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(255, 100, 150, 0.8);
+    }
+
+    .menu button:hover {
+      transform: scale(1.05);
+    }
+
+    .main {
+      flex: 1;
+      padding: 20px;
+      margin-left: 10px;
+      background: rgba(255, 182, 193, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.8);
+      overflow-y: auto;
+    }
+
+    #loginBtn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 15px;
+      background: #ff5e78;
+      color: white;
+      cursor: pointer;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(255, 100, 150, 0.8);
+    }
+
+    #introSection, #homeSection, #funSection {
+      display: none;
+      background: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      color: black;
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.8);
+    }
+
+    #funSection button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #ff85a2, #ff5e78);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(255, 100, 150, 0.8);
+    }
+
+    #funSection button:hover {
+      transform: scale(1.05);
+    }
+
+    body.dark-mode {
+      background: #1a1a1a;
+      color: #eee;
+    }
+
+    body.dark-mode .sidebar {
+      background: #2a2a2a;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    }
+
+    body.dark-mode .main {
+      background: #1f1f1f;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    }
+
+    body.dark-mode .menu button {
+      background: linear-gradient(135deg, #7d5fff, #5c33ff);
+      box-shadow: 0 0 10px rgba(125, 95, 255, 0.7);
+    }
+
+    body.dark-mode #loginBtn {
+      background: #444;
+    }
+
+    h2, h3, #title {
+      text-shadow: 0 0 10px rgba(255,255,255,0.9), 
+                  0 0 20px rgba(255,182,193,0.8);
+    }
+
+    #modeToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      background: #ff85a2;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255,100,150,0.8);
+    }
+
+    video {
+      border-radius: 15px; 
+      max-width: 100%; 
+      height: auto;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <div class="sidebar">
+      <div class="avatar">
+        <img src="Khoa.jpg" alt="Avatar">
+      </div>
+      <div class="menu">
+        <button onclick="showContent('home')">Trang chủ</button>
+        <button onclick="showContent('intro')">Lời giới thiệu</button>
+        <button onclick="showContent('media')">Ảnh/Video tải lên</button>
+        <button onclick="showContent('fun')">Giải trí</button>
+      </div>
+    </div>
+
+    <div class="main">
+      <button id="loginBtn" onclick="login()">Đăng nhập</button>
+      <h2 id="title">Chào mừng!</h2>
+      <div id="content">Chọn mục bên trái để xem nội dung
+        <p>-xoay ngang màn hình điện thoại để có trải nghiệm tốt hơn-</p>
+      </div>
+
+      <div id="homeSection">
+        <h3>Xin chào,bạn có thể quay lại trang chính \(￣︶￣*\)</h3>
+        <p><a href="bcvv2025.html">Tại đây</a></p>
+        <p>---xoay ngang màn hình điện thoại để có trải nghiệm tốt hơn---</p>
+      </div>
+
+      <div id="introSection">
+        <h3>Giới thiệu</h3>
+        <p>Người dùng chưa cập nhật</p>
+      </div>
+
+      <div id="funSection">
+        <h3>Khác...</h3>
+        <button onclick="window.open('')"></button>
+      </div>
+
+   
+      <div id="mediaSection" style="display:none;">
+        <h3>Video Của Bạn</h3>
+        <video controls>
+          <source src="" type="video/mp4">
+        </video>
+        <video controls>
+          <source src="" type="video/mp4">
+        </video>
+      </div>
+
+      <div id="imageSection" style="display:none;">
+        <h3>Ảnh Của Bạn</h3>
+        <img src="" alt="Image" style="max-width: 100%; height: auto; border-radius: 10px;">
+      </div>
+
+    </div>
+  </div>
+
+  <button id="modeToggle" onclick="toggleMode()">🌙 Dark Mode</button>
+
+  <script>
+    let isLoggedIn = false;
+
+    function showContent(section) {
+      let content = document.getElementById("content");
+      let homeSection = document.getElementById("homeSection");
+      let introSection = document.getElementById("introSection");
+      let funSection = document.getElementById("funSection");
+      let mediaSection = document.getElementById("mediaSection");
+      let imageSection = document.getElementById("imageSection");
+
+      homeSection.style.display = "none";
+      introSection.style.display = "none";
+      funSection.style.display = "none";
+      mediaSection.style.display = "none";
+      imageSection.style.display = "none";
+
+      if (section === "home") {
+        homeSection.style.display = "block"; 
+      } else if (section === "intro") {
+        introSection.style.display = "block"; 
+        content.innerHTML = "";
+      } else if (section === "media") {
+        if (isLoggedIn) { 
+          mediaSection.style.display = "block"; 
+          imageSection.style.display = "block";
+          content.innerHTML = "<p>Video của DKhoa</p>";
+        } else {
+          alert("Người dùng chưa cập nhật");
+        }
+      } else if (section === "fun") {
+        funSection.style.display = "block"; 
+      }
+    }
+
+    function login() {
+      let pass = prompt("Nhập Passcode");
+      if (pass === "1234") {
+        alert("Đăng nhập thành công!");
+        isLoggedIn = true;
+        document.getElementById("loginBtn").style.display = "none"; 
+
+        
+        document.getElementById("mediaSection").style.display = "block";
+        document.getElementById("imageSection").style.display = "block";
+      } else {
+        alert("Sai mật khẩu!");
+      }
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
+      const btn = document.getElementById("modeToggle");
+      btn.textContent = document.body.classList.contains("dark-mode") ? "☀️ Light Mode" : "🌙 Dark Mode";
+    }
+  </script>
+</body>
+</html>

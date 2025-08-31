@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>List</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    
+
+.avatar-fire {
+  position: relative;
+  display: inline-block;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.avatar-lam {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffd6e6;
+  position: relative;
+  z-index: 2;
+}
+
+
+.avatar-fire::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 80%, rgba(235, 164, 225, 0.8), rgba(252, 80, 146, 0.6), transparent 70%);
+  filter: blur(20px);
+  z-index: 1;
+  animation: flames 1s infinite alternate;
+}
+
+@keyframes flames {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.1) rotate(3deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.95) rotate(-3deg);
+    opacity: 0.8;
+  }
+}
+
+
+    
+    .display-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  justify-content: space-between; 
+}
+
+.display-info {
+  flex: 1; 
+}
+
+.btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+.music-btn,
+.next-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--pink);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.music-btn:hover,
+.next-btn:hover {
+  background: var(--pink-deep);
+}
+
+    .display-info .intro {
+  background: #f9f9f9;       
+  border-radius: 8px;        
+  padding: 6px 10px;       
+  margin-top: 6px;            
+  font-size: 0.9rem;
+  color: #333;
+}
+
+    :root{ --pink:#ff80b3; --pink-deep:#ff4d94; }
+    body{ margin:0; font-family:'Baloo 2',cursive; background:pink; color:var(--pink-deep); }
+    .panel{
+      max-width:1000px;
+      margin:24px auto;
+      padding:16px;
+    }
+
+    
+    .back-square{
+      position:fixed;
+      top:14px;
+      right:14px;
+      width:40px;
+      height:40px;
+      background:var(--pink);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:700;
+      box-shadow:0 4px 10px rgba(0,0,0,0.12);
+      z-index:1001;
+    }
+    .back-square:hover{ background:var(--pink-deep); }
+
+    h1{ text-align:center; margin-top:28px; font-size:clamp(1.4rem,4vw,2rem); }
+    p.lead{ text-align:center; color:#83344d; margin-top:6px; }
+
+    
+    .display-list{
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .display-item{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      background:#fff;
+      border-radius:12px;
+      padding:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.06);
+    }
+    .display-item img{
+      width:84px;
+      height:84px;
+      border-radius:50%;
+      object-fit:cover;
+      flex:0 0 84px;
+      border:3px solid #ffd6e6;
+    }
+    .display-info h3{ margin:0; color:var(--pink-deep); }
+    .display-info p{ margin:4px 0; color:#444; font-size:0.95rem; }
+    .display-info a{ color:var(--pink); text-decoration:none; font-weight:600; }
+    .display-info a:hover{ text-decoration:underline; }
+
+    
+    @media (max-width:600px){
+      .display-item{ padding:10px; }
+      .display-item img{ width:64px; height:64px; flex:0 0 64px; }
+    }
+
+    .notice-btn {
+  background-color: #ff85a2; 
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  box-shadow: 0 0 8px rgba(255,100,150,0.6);
+  transition: transform 0.2s;
+}
+.notice-btn:hover {
+  transform: scale(1.05);
+}
+
+
+.notice-content {
+  display: none;
+  margin-top: 8px;
+  padding: 10px;
+  background: #ffe6ef;
+  border: 1px solid #ff85a2;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+
+  </style>
+</head>
+<body>
+  
+  
+
+  <canvas id="star-bg" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;"></canvas>
+
+  
+<a class="back-square" href="bcvv2025.html" title="Quay lại">←</a>
+
+<div class="panel" style="position:relative; z-index:1;">
+  <h1>BCVV 2025</h1>
+  <p class="lead">List gia đình — nhắp vào "Facebook" để mở thông tin cá nhân </p>
+
+
+<div class="display-list">
+
+  <div class="display-item">
+    <div class="avatar-fire">
+  <img src="lam1.jpg" alt="Duonq Lam" class="avatar-lam">
+</div>
+
+<div class="display-info">
+  <h3>Duonq Lam</h3>
+  <p>Sinh: 2077</p>
+  <a href="https://www.facebook.com/DuonqLaam" target="_blank" rel="noopener">Facebook</a>
+  <p class="intro">Note: Sáng lọ,trưa lọ,chiều lọ,tối nọ lọ mọ vào giường em</p>
+
+  
+  <button id="toggleNotice" class="notice-btn">📌 Lưu ý</button>
+  <div id="noticeContent" class="notice-content">
+    Nếu sử dụng mobile, do không quá tương thích thì trang web có thể không chiếu hết toàn màn hình. 
+    Hãy xoay ngang màn hình hoặc sử dụng PC để khắc phục.
+  </div>
+</div>
+
+<script>
+  document.getElementById("toggleNotice").addEventListener("click", function() {
+    const content = document.getElementById("noticeContent");
+    content.style.display = (content.style.display === "block") ? "none" : "block";
+  });
+</script>
+
+
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="lam.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="emla.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="giang1.jpg" alt="Giang Đẫm">
+    <div class="display-info">
+      <h3>Giang Đẫm</h3>
+      <p>Sinh: 2009</p>
+      <a href="https://www.facebook.com/wkittimeomeo" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Ăn đi không cái chú ngoài kia bắt</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="giang.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="haychocon.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="conech1.jpg" alt="Con Ếch">
+    <div class="display-info">
+      <h3>Con Ếch</h3>
+      <p>Sinh: 2006</p>
+      <a href="https://www.facebook.com/con.ech.940263" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Ai đứng cùng tôi thì tôi sẽ ghi ơn họ 
+                        Ai quay lưng lại với tôi thì tôi sẽ bóp đít họ</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="ech.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="PHONG.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="Duong1.jpg" alt="Duong Hg">
+    <div class="display-info">
+      <h3>Ướng Danh</h3>
+      <p>Sinh: 2010</p>
+      <a href="https://www.facebook.com/foxbiw" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Yêu zai lào kai</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="dw.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="Yeu5.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="YenNhie.jpg" alt="Yen Nhie">
+    <div class="display-info">
+      <h3>YenNhie</h3>
+      <p>Sinh: 2008</p>
+      <a href="https://www.facebook.com/4newni" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Hận kẻ bạc tình</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="nhie.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="pages.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="GiaHeo.jpg" alt="Gia Heo">
+    <div class="display-info">
+      <h3>Gia Heo</h3>
+      <p>Sinh: 2010</p>
+      <a href="https://www.facebook.com/NotYahiTho.1337" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Acc chính chủ 🍚👕🌾💸.Hoa rơi cửa phật,vạn sự tùy duyên.Chưa chủ</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="huy.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="illtakecare.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="tai.jpg" alt="Tai">
+    <div class="display-info">
+      <h3>Tài</h3>
+      <p>Sinh: 2008</p>
+      <a href="https://www.facebook.com/nguyen.tai.972807" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Yêu em công chúa nem chua - from:Hoàng tử đường tàu ❤</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="tai.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="hunnids.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="Thu 1.JPG" alt="Anh Tku">
+    <div class="display-info">
+      <h3>Anh Tku</h3>
+      <p>Sinh: 2010</p>
+      <a href="https://www.facebook.com/anh.tku.1307#" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Móc giỏi móc khỏe móc vương</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="thu.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="tusu.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="BaoYn.jpg" alt="Bao Yn">
+    <div class="display-info">
+      <h3>Bao Yn</h3>
+      <p>Sinh: 2009</p>
+      <a href="https://www.facebook.com/ucojhot" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Y</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="yen.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="lovesongs.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="Khoa.jpg" alt="DKhoa">
+    <div class="display-info">
+      <h3>DKhoa</h3>
+      <p>Sinh: 2008</p>
+      <a href="https://www.facebook.com/dkhoa102z" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Tù mini</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="khoa.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="che36.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="Ngan.jpg" alt="Kim Ngan">
+    <div class="display-info">
+      <h3>Tn Kim Ngan</h3>
+      <p>Sinh: 2009</p>
+      <a href="https://www.facebook.com/tnkimnganzZ" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Từ giờ tôi sẽ</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="ngan.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="phaiquendianh.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="Nga.jpg" alt="Nga">
+    <div class="display-info">
+      <h3>Nga</h3>
+      <p>Sinh: 2010</p>
+      <a href="https://www.facebook.com/djtconmemayconloz" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Ờ</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="nga.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="neuanhthay.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="kien1.JPG" alt="Kiên Mạnh">
+    <div class="display-info">
+      <h3>Kien Manh</h3>
+      <p>Sinh: 2008</p>
+      <a href="https://www.facebook.com/kienmanhdzno1" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:Thuê đánh nhau ib-bất bại seoul</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="kien.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="Yad.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="Tri1.jpg" alt="Minh Trí">
+    <div class="display-info">
+      <h3>Minh Trí</h3>
+      <p>Sinh: 2007</p>
+        <a href="https://www.facebook.com/nguyen.quoc.gia.huy.428890" target="_blank" rel="noopener">Facebook</a>
+       <p><a href="https://zalo.me/0353210429" target="_blank" rel="noopener">Bonus thêm Zalo vì tml này dễ bay acc fb</a></p>
+      <p><a href="https://www.roblox.com/vi/users/1633661494/profile" target="_blank" rel="noopener">Bonus thêm acc Roblox vì tml này yêu gái rô lóc</a></p>
+    <p><a href="https://www.tiktok.com/@daqmtri" target="_blank" rel="noopener">Bonus thêm Tiktok vì tml này là idol ff với lại nó chơi ff nhiều vcl</a></p>
+  <p><a href="https://discord.com/users/733305600175243334" target="_blank" rel="noopener">Bonus thêm Discord vì tml này toàn chơi ff với bạn lại còn stream nữa</a></p>
+        <p class="intro">Note:yêu em Hân,Vy,Linh,Châu,Như,Nhie,Mai Anh...</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href="tri.html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="anh3duchoa.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="display-item">
+    <img src="simmy.JPG" alt="Simmy">
+    <div class="display-info">
+      <h3>Mèo Simmy (Tích Xanh)</h3>
+      <p>Sinh: 2000</p>
+      <a href="https://www.facebook.com/simmtrucdao25y" target="_blank" rel="noopener">Facebook</a>
+      <p class="intro">Note:🌻Youtube: MèoSimmy</p>
+    </div>
+    <div class="btn-group">
+      <button class="music-btn" type="button">▶</button>
+      <a href=".html" class="next-btn">→</a>
+    </div>
+    <audio class="music" src="heroteam.mp3" preload="auto"></audio>
+  </div>
+
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.music-btn');
+
+  buttons.forEach((btn) => {
+    const audio = btn.parentElement.parentElement.querySelector('.music');
+    
+    btn.addEventListener('click', () => {
+      if (audio.paused) {
+        
+        document.querySelectorAll('.music').forEach(m => m.pause());
+        document.querySelectorAll('.music-btn').forEach(b => b.textContent = '▶');
+        
+        audio.play();
+        btn.textContent = '⏸';
+      } else {
+        audio.pause();
+        btn.textContent = '▶';
+      }
+    });
+  });
+</script>
+
+
+  
+  <script>
+    const canvas = document.getElementById('star-bg');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const stars = [];
+    const STAR_COUNT = 150;
+
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: (Math.random() - 0.5) * canvas.width,
+        y: (Math.random() - 0.5) * canvas.height,
+        z: Math.random() * canvas.width,
+        speed: 2 + Math.random() * 3
+      });
+    }
+
+    function animateStars() {
+      ctx.fillStyle = '#ffffff'; 
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let star of stars) {
+        star.z -= star.speed;
+        if (star.z <= 0) {
+          star.x = (Math.random() - 0.5) * canvas.width;
+          star.y = (Math.random() - 0.5) * canvas.height;
+          star.z = canvas.width;
+          star.speed = 2 + Math.random() * 3;
+        }
+
+        let scale = 200 / star.z;
+        let x = star.x * scale + canvas.width/2;
+        let y = star.y * scale + canvas.height/2;
+
+        
+        let trailLength = 5 + 10 * (1 - star.z / canvas.width);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x - star.x * scale / star.z * trailLength, y - star.y * scale / star.z * trailLength);
+        ctx.strokeStyle = 'rgba(255,200,255,0.8)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+  </script>
+
+
+  
+</body>
+
+</html>
