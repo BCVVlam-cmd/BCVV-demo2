@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuonqLaam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+
+
+   
+body.fire-mode .avatar img {
+  position: relative;
+  z-index: 2;
+  border-radius: 50%;
+  border: 3px solid #ff6600;
+  box-shadow: 0 0 20px rgba(255,100,0,0.9);
+}
+
+body.fire-mode .avatar::after {
+  content: "";
+  position: absolute;
+  top: 0%;   
+  left: 50%;     
+  transform: translateX(-50%);
+  
+  width: 185px;
+  height: 185px;
+  border-radius: 65%;
+  background: radial-gradient(circle at center, rgba(255,180,0,0.9), rgba(255,80,0,0.7), transparent 70%);
+  filter: blur(12px);
+  animation: fireDown 0.6s infinite alternate;
+  z-index: 1;
+}
+
+@keyframes fireDown {
+  0%   { transform: translateX(-50%) scale(1); opacity: 0.9; }
+  50%  { transform: translateX(-50%) scale(1.1) translateY(5px); opacity: 1; }
+  100% { transform: translateX(-50%) scale(0.95) translateY(-3px); opacity: 0.7; }
+}
+
+
+
+body.fire-mode .sidebar,
+body.fire-mode .main,
+body.fire-mode #introSection,
+body.fire-mode #homeSection,
+body.fire-mode #funSection,
+body.fire-mode #mediaSection,
+body.fire-mode #imageSection {
+  border: 2px solid #ff6600;
+  box-shadow: 0 0 25px rgba(255,120,0,0.9);
+  position: relative;
+}
+
+body.fire-mode h2,
+body.fire-mode h3,
+body.fire-mode #title {
+  text-shadow: 0 0 15px rgba(255,180,0,1), 0 0 30px rgba(255,100,0,0.9);
+}
+
+@keyframes firePulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+
+#modeToggle, #fireToggle {
+  position: fixed;
+  bottom: 20px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  background: #ff85a2;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255,100,150,0.8);
+}
+
+#modeToggle {
+  right: 120px; 
+}
+
+#fireToggle {
+  right: 140px; 
+}
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Baloo 2', cursive;
+    }
+
+    body {
+      background: pink;
+      color: white;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: rgba(255, 192, 203, 0.9);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 192, 203, 0.8);
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      background: #fff;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      overflow: hidden; 
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+    }
+
+    .menu button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #ff85a2, #ff5e78);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(255, 100, 150, 0.8);
+    }
+
+    .menu button:hover {
+      transform: scale(1.05);
+    }
+
+    .main {
+      flex: 1;
+      padding: 20px;
+      margin-left: 10px;
+      background: rgba(255, 182, 193, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.8);
+      overflow-y: auto;
+    }
+
+    #loginBtn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 15px;
+      background: #ff5e78;
+      color: white;
+      cursor: pointer;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(255, 100, 150, 0.8);
+    }
+
+    #introSection, #homeSection, #funSection {
+      display: none;
+      background: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      color: black;
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.8);
+    }
+
+    #funSection button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #ff85a2, #ff5e78);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(255, 100, 150, 0.8);
+    }
+
+    #funSection button:hover {
+      transform: scale(1.05);
+    }
+
+    body.dark-mode {
+      background: #1a1a1a;
+      color: #eee;
+    }
+
+    body.dark-mode .sidebar {
+      background: #2a2a2a;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    }
+
+    body.dark-mode .main {
+      background: #1f1f1f;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    }
+
+    body.dark-mode .menu button {
+      background: linear-gradient(135deg, #7d5fff, #5c33ff);
+      box-shadow: 0 0 10px rgba(125, 95, 255, 0.7);
+    }
+
+    body.dark-mode #loginBtn {
+      background: #444;
+    }
+
+    h2, h3, #title {
+      text-shadow: 0 0 10px rgba(255,255,255,0.9), 
+                  0 0 20px rgba(255,182,193,0.8);
+    }
+
+    #modeToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      background: #ff85a2;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255,100,150,0.8);
+    }
+
+    video {
+      border-radius: 15px; 
+      max-width: 100%; 
+      height: auto;
+    }
+
+   
+
+
+body.ice-mode .avatar::after {
+  content: "";
+  position: absolute;
+  top: 14px;     
+  left: 38px;    
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(150,220,255,0.85), rgba(0,150,255,0.6), transparent 70%);
+  filter: blur(16px);
+  animation: iceGlow 1.6s infinite alternate ease-in-out;
+  z-index: 1;
+}
+
+
+
+body.ice-mode .sidebar,
+body.ice-mode .main,
+body.ice-mode #introSection,
+body.ice-mode #homeSection,
+body.ice-mode #funSection,
+body.ice-mode #mediaSection,
+body.ice-mode #imageSection {
+  border: 2px solid #00ccff;
+  box-shadow: 0 0 25px rgba(0,200,255,0.9);
+  background-color: pink;
+  position: relative;
+}
+
+
+body.ice-mode h2,
+body.ice-mode h3,
+body.ice-mode #title {
+  text-shadow: 0 0 15px rgba(200,240,255,1), 0 0 30px rgba(0,180,255,0.9);
+}
+
+
+@keyframes iceGlow {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  50%  { transform: scale(1.18); opacity: 1; }
+  100% { transform: scale(0.92); opacity: 0.65; }
+}
+
+
+
+#iceToggle {
+  position: fixed;
+  bottom: 20px;
+  right: 245px;              
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  background: #ff85a2;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255,100,150,0.8);
+}
+
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column; 
+    height: auto;          
+    overflow: visible;
+  }
+
+  .sidebar {
+    width: 100%;            
+    flex-direction: row;     
+    justify-content: space-around;
+    margin-bottom: 15px;
+  }
+
+  .menu button {
+    font-size: 14px;           
+    padding: 8px;
+  }
+
+  .main {
+    width: 100%;         
+    margin-left: 0;
+    font-size: 16px;          
+    line-height: 1.6;       
+  }
+
+  #introSection {
+    font-size: 16px;        
+    line-height: 1.6;         
+  }
+}
+
+
+@media (max-width: 600px) {
+  .avatar {
+    width: 90%;       
+    max-width: 280px; 
+    height: auto;    
+    display: block;
+    margin: 0 auto;   
+  }
+
+  #introSection {
+    width: 95%;    
+    margin: 10px auto;
+    font-size: 14px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+  
+
+  <div class="container">
+    
+    <div class="sidebar">
+      <div class="avatar">
+        <img src="lam2.jpg" alt="Avatar">
+      </div>
+      <div class="menu">
+        <button onclick="showContent('home')">Trang chủ</button>
+        <button onclick="showContent('intro')">Lời giới thiệu</button>
+        <button onclick="showContent('media')">Ảnh/Video tải lên</button>
+        <button onclick="showContent('fun')">Giải trí</button>
+      </div>
+    </div>
+
+    <div class="main">
+      <button id="loginBtn" onclick="login()">Đăng nhập</button>
+      <h2 id="title">Chào mừng!</h2>
+      <div id="content">Chọn mục bên trái để xem nội dung
+        <p>-xoay ngang màn hình điện thoại để có trải nghiệm tốt hơn-</p>
+      </div>
+
+      <div id="homeSection">
+        <h3>Xin chào,bạn có thể quay lại trang chính \(￣︶￣*\)</h3>
+        <p><a href="bcvv2025.html">Tại đây</a></p>
+        <p>---xoay ngang màn hình điện thoại để có trải nghiệm tốt hơn---</p>
+      </div>
+
+<div id="introSection">
+  <h3>Giới thiệu</h3>
+  <p>Tên: Lâm</p>
+  <p>Tuổi: 18</p>
+  <p>Ngày chào đời: 07/09/2007</p>
+  <p>Nơi sinh: <span id="bacBling" style="color:#f5a1ea;cursor:pointer;text-decoration:underline;">Bắc Bling </span></p>
+  <p>Hiện đang sống tại: Thái Nguyên province</p>
+  <p>Thành tựu lớn nhất: được ra đời</p>
+  <p>Thể thao: cầu lông,bơi,gym,bóng đá</p>
+  <p>Sở thích: chơi game, nghe nhạc, nghịch code</p>
+  <p>Trạng thái: độc thân vui tính</p>
+  <p></p>
+  <p>-Chào mng nhé,cho những ai chưa biết thì đây là trang web đầu tay do Lâm tạo nên,mục đích là lưu trữ thông tin cá nhân,ảnh và video,đây là công sức,xương máu,mồ hôi và nước mắt của tôi sau 4 ngày không ngủ để làm web này,hi vọng mọi người sẽ thích nó,đây là trang web cá nhân nên không có ý định thù địch hay chống đối thế lực nào,hi vọng mọi người sẽ ủng hộ tôi trong những dự án tiếp theo,thân ái và chào tạm biệt</p>
+  <p>-Bắc Ninh,ngày 1 tháng 9 năm 2025</p>
+  <p></p>
+  <p> passcode của Lâm là 0709, giữ bí mật bt chưa, cấm cho ai bt 🤫</p>
+</div>
+
+
+<audio id="blingAudio" src="bacbling.mp3"></audio>
+
+<script>
+  const bacBling = document.getElementById("bacBling");
+  const blingAudio = document.getElementById("blingAudio");
+
+  bacBling.addEventListener("click", () => {
+    if (blingAudio.paused) {
+      blingAudio.play();
+      bacBling.style.color = "#ff4444"; 
+    } else {
+      blingAudio.pause();
+      blingAudio.currentTime = 0; 
+      bacBling.style.color = "#00ffcc"; 
+    }
+  });
+</script>
+
+
+      <div id="funSection">
+        <h3>Khác...</h3>
+        <button onclick="window.open('https://guns.lol/dglm')">Guns</button>
+      </div>
+
+   
+      <div id="mediaSection" style="display:none;">
+        <h3>Video Của Bạn</h3>
+        <video controls>
+          <source src="SkullandLola.mp4" type="video/mp4">
+        </video>
+        <video controls>
+          <source src="onggia.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div id="imageSection" style="display:none;">
+        <h3>Ảnh Của Bạn</h3>
+        <img src="Fumo.jpg" alt="Image" style="max-width: 100%; height: auto; border-radius: 10px;">
+      </div>
+
+    </div>
+  </div>
+
+<button id="modeToggle" onclick="toggleMode()">🌙 Dark Mode</button>
+<button id="fireToggle" onclick="toggleFire()">🔥 scorpion </button>
+<button id="iceToggle" onclick="toggleIce()">❄️ sub zero</button>
+
+
+
+
+<script>
+  
+  function toggleFire() {
+    const body = document.body;
+    const fireBtn = document.getElementById("fireToggle");
+    const iceBtn  = document.getElementById("iceToggle");
+
+    
+    if (body.classList.contains("ice-mode")) {
+      body.classList.remove("ice-mode");
+      if (iceBtn) iceBtn.textContent = "❄️ Ice Mode";
+    }
+
+    body.classList.toggle("fire-mode");
+    fireBtn.textContent = body.classList.contains("fire-mode") ? "❌ Tắt" : "🔥 scorpion ";
+  }
+
+  function toggleIce() {
+    const body = document.body;
+    const iceBtn  = document.getElementById("iceToggle");
+    const fireBtn = document.getElementById("fireToggle");
+
+    
+    if (body.classList.contains("fire-mode")) {
+      body.classList.remove("fire-mode");
+      if (fireBtn) fireBtn.textContent = "🔥scorpion";
+    }
+
+    body.classList.toggle("ice-mode");
+    iceBtn.textContent = body.classList.contains("ice-mode") ? "❌ Tắt" : "❄️ sub zero";
+  }
+</script>
+
+
+
+  <script>
+    let isLoggedIn = false;
+
+    function showContent(section) {
+      let content = document.getElementById("content");
+      let homeSection = document.getElementById("homeSection");
+      let introSection = document.getElementById("introSection");
+      let funSection = document.getElementById("funSection");
+      let mediaSection = document.getElementById("mediaSection");
+      let imageSection = document.getElementById("imageSection");
+
+      homeSection.style.display = "none";
+      introSection.style.display = "none";
+      funSection.style.display = "none";
+      mediaSection.style.display = "none";
+      imageSection.style.display = "none";
+
+      if (section === "home") {
+        homeSection.style.display = "block"; 
+      } else if (section === "intro") {
+        introSection.style.display = "block"; 
+        content.innerHTML = "";
+      } else if (section === "media") {
+        if (isLoggedIn) { 
+          mediaSection.style.display = "block"; 
+          imageSection.style.display = "block";
+          content.innerHTML = "<p>Video của Lâm</p>";
+        } else {
+          alert("Bạn cần đăng nhập để xem bí mật quốc gia của lâm!");
+        }
+      } else if (section === "fun") {
+        funSection.style.display = "block"; 
+      }
+    }
+
+    function login() {
+      let pass = prompt("Nhập Passcode (khi đăng nhập thì bạn sẽ bị Lâm đánh cắp thông tin cá nhân như bank,fb,sđt...mất gì tự chịu nhé:)))");
+      if (pass === "0709") {
+        alert("Đăng nhập thành công!");
+        isLoggedIn = true;
+        document.getElementById("loginBtn").style.display = "none"; 
+
+        
+        document.getElementById("mediaSection").style.display = "block";
+        document.getElementById("imageSection").style.display = "block";
+      } else {
+        alert("Sai mật khẩu!");
+      }
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
+      const btn = document.getElementById("modeToggle");
+      btn.textContent = document.body.classList.contains("dark-mode") ? "☀️ Light Mode" : "🌙 Dark Mode";
+    }
+  </script>
+</body>
+</html>
